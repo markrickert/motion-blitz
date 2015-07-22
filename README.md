@@ -11,7 +11,7 @@ __motion-blitz__'s initial development was sponsored by [dscout](https://dscout.
 
 ## Usage
 
-``` ruby
+```ruby
 Notifier = Motion::Blitz
 
 Notifier.show
@@ -21,6 +21,15 @@ Notifier.show('Hold on!', :gradient)
 
 Notifier.loading # 'Loading...'
 Notifier.loading(:black)
+
+Notifier.info
+Notifier.info('Some Information!')
+Notifier.info('Some Information!', :gradient)
+
+Notifier.image(UIImage.imageNamed('my_image'))
+Notifier.image('my_image')
+Notifier.image('my_image', 'This image')
+Notifier.image('my_image', 'This image', :black)
 
 Notifier.progress(0.5)
 Notifier.progress(0.8, 'Almost Done!')
@@ -38,11 +47,27 @@ Notifier.error('Whoops!')
 
 ### Masks
 
-``` ruby
+```ruby
 :none     # allow user interactions, don't dim background UI (default)
 :clear    # disable user interactions, don't dim background UI
 :black    # disable user interactions, dim background UI with 50% translucent black
 :gradient # disable user interactions, dim background UI with translucent radial gradient (a-la-alertView)
+```
+
+### Setting global styles
+
+You can set the defaults for all HUDs that are created. Just set what you want to modify and it'll be applied to all HUDs displayed.
+
+```ruby
+Notifier = Motion::Blitz
+
+Notifier.background_color = UIColor.redColor
+Notifier.foreground_color = UIColor.blueColor
+Notifier.font = UIFont.fontWithName("Courier", size: 10.0)
+Notifier.info_image = 'my_info_image' # or UIImage.imageNamed('my_info_image')
+Notifier.success_image = 'my_success_image' # or UIImage.imageNamed('my_success_image')
+Notifier.error_image = 'my_error_image' # or UIImage.imageNamed('my_error_image')
+Notifier.default_mask_type = :gradient # or SVProgressHUDMaskTypeGradient
 ```
 
 ## Setup
