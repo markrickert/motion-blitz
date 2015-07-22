@@ -1,20 +1,21 @@
 # -*- encoding: utf-8 -*-
-Gem::Specification.new do |gem|
-  gem.name          = 'motion-blitz'
-  gem.version       = '1.2.0'
-  gem.authors       = ['Devon Blandin']
-  gem.email         = 'dblandin@gmail.com'
-  gem.description   = %q{RubyMotion wrapper for SVProgressHUD}
-  gem.summary       = %q{RubyMotion wrapper for SVProgressHUD}
-  gem.homepage      = 'http://github.com/dblandin/motion-blitz'
-  gem.license       = 'MIT'
+Gem::Specification.new do |spec|
+  spec.name          = 'motion-blitz'
+  spec.version       = '1.2.0'
+  spec.authors       = ['Devon Blandin']
+  spec.email         = 'dblandin@gmail.com'
+  spec.description   = %q{RubyMotion wrapper for SVProgressHUD}
+  spec.summary       = %q{RubyMotion wrapper for SVProgressHUD}
+  spec.homepage      = 'http://github.com/dblandin/motion-blitz'
+  spec.license       = 'MIT'
 
   files = []
-  files << 'README.md' << Dir.glob('lib/**/*.rb')
-  gem.files         = files
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ['lib']
-
-  gem.add_dependency 'motion-cocoapods', '>= 1.4.0'
-  gem.add_development_dependency 'rake'
+  files << 'README.md'
+  files << Dir.glob('lib/**/*.rb')
+  spec.files         = files
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ['lib']
+  
+  spec.add_dependency 'motion-cocoapods', '>= 1.4.0'
+  spec.add_development_dependency 'rake'
 end
