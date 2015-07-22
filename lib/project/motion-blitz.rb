@@ -82,9 +82,6 @@ module Motion
         check_mask(options[:mask])
         mask = MASKS[options[:mask]]
 
-        mp 'invoking with options:'
-        mp options
-
         case options[:style]
         when :show
           if visible?
