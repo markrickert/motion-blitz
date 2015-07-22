@@ -131,7 +131,92 @@ module Motion
         hud_class.isVisible
       end
 
+      # Style setters and getters
+
+      # default is [UIColor whiteColor]
+      def background_color=(color)
+        hud_class.setBackgroundColor(color)
       end
+      def background_color
+        hud_class.sharedView.hudView.backgroundColor
+      end
+
+      # default is [UIColor blackColor]
+      def foreground_color=(color)
+        hud_class.setForegroundColor(color)
+      end
+      def foreground_color
+        hud_class.sharedView.stringLabel.textColor
+      end
+
+      # default is 14 pt
+      def corner_radius=(radius)
+        hud_class.setCornerRadius(radius)
+      end
+      def corner_radius
+        hud_class.sharedView.hudView.layer.cornerRadius
+      end
+
+      # default is 4 pt
+      def ring_thickness=(thickness)
+        hud_class.setRingThickness(thickness)
+      end
+      def ring_thickness
+        hud_class.sharedView.indefiniteAnimatedView.strokeThickness
+      end
+
+      # default is [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]
+      def font=(font)
+        hud_class.setFont(font)
+      end
+      def font
+        hud_class.sharedView.stringLabel.font
+      end
+
+      # default is the bundled info image provided by Freepik
+      def info_image=(image)
+        image = UIImage.imageNamed(image) if image.is_a?(String)
+        hud_class.setInfoImage(image)
+      end
+      # def info_image
+      #   hud_class.infoImage
+      # end
+
+      # default is the bundled info image provided by Freepik
+      def success_image=(image)
+        image = UIImage.imageNamed(image) if image.is_a?(String)
+        hud_class.setSuccessImage(image)
+      end
+      # def success_image
+      #   hud_class.successImage
+      # end
+
+      # default is the bundled info image provided by Freepik
+      def error_image=(image)
+        image = UIImage.imageNamed(image) if image.is_a?(String)
+        hud_class.setErrorImage(image)
+      end
+      # def error_image
+      #   hud_class.errorImage
+      # end
+
+      # default is SVProgressHUDMaskTypeNone
+      def default_mask_type=(mask)
+        mask = MASKS[mask] if mask.is_a?(Symbol)
+        hud_class.setDefaultMaskType(mask)
+      end
+      # def default_mask_type
+      #   hud_class.defaultMaskType
+      # end
+
+      #default is nil, only used if #define SV_APP_EXTENSIONS is set
+      def view=(view)
+        hud_class.setViewForExtension(view)
+      end
+      # def view
+      #   hud_class.viewForExtension
+      # end
+
 
       private
 
