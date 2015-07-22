@@ -24,6 +24,10 @@ class MotionBlitzDemoManager
   def demos
     [ 'Show',
       'Show with status',
+      'Show info',
+      'Show info with status',
+      'Show image',
+      'Show image with status',
       'Show with progress',
       'Increase progress',
       'Decrease progress',
@@ -37,6 +41,10 @@ class MotionBlitzDemoManager
   def actions
     [ lambda { Motion::Blitz.show },
       lambda { Motion::Blitz.show('Hi there!') },
+      lambda { Motion::Blitz.info },
+      lambda { Motion::Blitz.info('Some Info Message!') },
+      lambda { Motion::Blitz.image('blitz') },
+      lambda { Motion::Blitz.image('blitz', 'motion-blitz!') },
       lambda { Motion::Blitz.progress(progress) },
       lambda { Motion::Blitz.progress(increment_progress) },
       lambda { Motion::Blitz.progress(decrement_progress) },

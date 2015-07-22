@@ -13,23 +13,37 @@ module Motion
 
     class << self
       def show(message_or_mask = nil, mask = :none)
-        if message_or_mask.is_a? Symbol
-          show(nil, message_or_mask)
-        else
-          check_mask(mask)
+        invoke({
+          style: :show,
+          status: message_or_mask.is_a?(Symbol) ? nil : message_or_mask,
+          mask: message_or_mask.is_a?(Symbol) ? message_or_mask : mask
+        })
+      end
 
-          hud_class.showWithStatus(message_or_mask, maskType: MASKS[mask])
-        end
+      def info(message_or_mask = nil, mask = :none)
+        invoke({
+          style: :info,
+          status: message_or_mask.is_a?(Symbol) ? nil : message_or_mask,
+          mask: message_or_mask.is_a?(Symbol) ? message_or_mask : mask
+        })
+      end
+
+      def image(image, message_or_mask = nil, mask = :none)
+        invoke({
+          style: :image,
+          image: image,
+          status: message_or_mask.is_a?(Symbol) ? nil : message_or_mask,
+          mask: message_or_mask.is_a?(Symbol) ? message_or_mask : mask
+        })
       end
 
       def progress(progress, message_or_mask = nil, mask = :none)
-        if message_or_mask.is_a? Symbol
-          progress(progress, nil, message_or_mask)
-        else
-          check_mask(mask)
-
-          hud_class.showProgress(progress, status: message_or_mask, maskType: MASKS[mask])
-        end
+        invoke({
+          style: :progress,
+          progress: progress,
+          status: message_or_mask.is_a?(Symbol) ? nil : message_or_mask,
+          mask: message_or_mask.is_a?(Symbol) ? message_or_mask : mask
+        })
       end
 
       def loading(mask = :none)
@@ -40,16 +54,83 @@ module Motion
         hud_class.dismiss
       end
 
-      def image(image, message = nil)
-        hud_class.showImage(image, status: message)
+      def success(message = nil, mask = :none)
+        invoke({
+          style: :success,
+          status: message,
+          mask: mask
+        })
       end
 
-      def success(message = nil)
-        hud_class.showSuccessWithStatus(message)
+      def error(message = nil, mask = :none)
+        invoke({
+          style: :error,
+          status: message,
+          mask: mask
+        })
       end
 
-      def error(message = nil)
-        hud_class.showErrorWithStatus(message)
+      def invoke(options = {})
+        options = {
+          style: :show,
+          mask: :none,
+          status: nil,
+          progress: nil,
+          image: nil,
+        }.merge(options)
+
+        check_mask(options[:mask])
+        mask = MASKS[options[:mask]]
+
+        mp 'invoking with options:'
+        mp options
+
+        case options[:style]
+        when :show
+          if visible?
+            hud_class.showWithStatus(options[:status])
+          else
+            hud_class.showWithStatus(options[:status], maskType: mask)
+          end
+        when :progress
+          if visible?
+            hud_class.showProgress(options[:progress], status: options[:status])
+          else
+            hud_class.showProgress(options[:progress], status: options[:status], maskType: mask)
+          end
+        when :info
+          if visible?
+            hud_class.showInfoWithStatus(options[:status])
+          else
+            hud_class.showInfoWithStatus(options[:status], maskType: mask)
+          end
+        when :success
+          if visible?
+            hud_class.showSuccessWithStatus(options[:status])
+          else
+            hud_class.showSuccessWithStatus(options[:status], maskType: mask)
+          end
+        when :error
+          if visible?
+            hud_class.showErrorWithStatus(options[:status])
+          else
+            hud_class.showErrorWithStatus(options[:status], maskType: mask)
+          end
+        when :image
+          options[:image] = UIImage.imageNamed(options[:image]) if options[:image].is_a?(String)
+          raise ArgumentError, "image must be a UIImage or string" unless options[:image].is_a?(UIImage)
+          if visible?
+            hud_class.showImage(options[:image], status: options[:status])
+          else
+            hud_class.showImage(options[:image], status: options[:status], maskType: mask)
+          end
+        end
+      end
+
+      def visible?
+        hud_class.isVisible
+      end
+
       end
 
       private
