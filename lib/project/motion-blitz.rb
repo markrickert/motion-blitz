@@ -150,17 +150,18 @@ module Motion
       end
 
       # default is 14 pt
-      def corner_radius=(radius)
-        hud_class.setCornerRadius(radius)
-      end
+      # this is in master but not in v1.1.3
+      # def corner_radius=(radius)
+      #   hud_class.setCornerRadius(radius)
+      # end
       def corner_radius
         hud_class.sharedView.hudView.layer.cornerRadius
       end
 
-      # default is 4 pt
-      def ring_thickness=(thickness)
-        hud_class.setRingThickness(thickness)
-      end
+      # default is 5 pt
+      # def ring_thickness=(thickness)
+      #   hud_class.setRingThickness(thickness)
+      # end
       def ring_thickness
         hud_class.sharedView.indefiniteAnimatedView.strokeThickness
       end
