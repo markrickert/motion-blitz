@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 $:.unshift('/Library/RubyMotion/lib')
 require 'motion/project/template/ios'
-require 'bundler'
+require 'bundler/gem_tasks'
+require 'bundler/setup'
 require './lib/motion-blitz'
 
 Bundler.require :default
