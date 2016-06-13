@@ -9,5 +9,5 @@ Motion::Project::App.setup do |app|
   app.files += Dir.glob(File.join(lib_dir_path, 'project/**/*.rb'))
 
   app.pods ||= Motion::Project::CocoaPods.new(app)
-  app.pods.pod 'SVProgressHUD', '~> 1.0'
+  app.pods.pod 'SVProgressHUD', '~> 2.0.3'
 end
